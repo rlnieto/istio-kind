@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: utils
+spec: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: utils
+  namespace: utils
+  labels:
+    app: utils
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: utils
+  template:
+    metadata:
+      labels:
+        app: utils
+      annotations:
+        sidecar.istio.io/inject: 'true'
+    spec:
+      containers:
+        - name: utils
+          image: quay.io/rlnieto/pod-utils:1.0.1
+          imagePullPolicy: Always
+          command: ["/bin/bash"]
+          tty: true
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "50m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
