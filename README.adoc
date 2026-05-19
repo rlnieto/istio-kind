@@ -1,2 +1,2 @@
 == Contenido
-
+* *create-cluster:* crea un cluster kind, instala istio y etiqueta el ns *default* para que istio inyecte los sidecars
